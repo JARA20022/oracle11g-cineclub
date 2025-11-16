@@ -1,69 +1,151 @@
-🟦 Entrega 2 – Operaciones SQL Avanzadas y CRUD
+Mini-Proyecto Oracle 11g: Cineclub
 
-Esta entrega amplía el proyecto original incorporando:
+Proyecto académico con instalación, configuración y conexión a Oracle Database 11g XE, incluyendo:
 
-✔ Operaciones CRUD en SQL
+Diseño de esquema relacional
 
-Se añadieron operaciones completas mediante el archivo 03_entrega2.sql:
+Creación de tablas y datos de ejemplo
 
-INSERT: registro de nuevos clientes y películas
+Conexión desde Python usando oracledb (modo Thick)
 
-UPDATE: actualización de correo y precio de funciones
+Ejecución de consulta simple y documentación con capturas
 
-DELETE: eliminación de boletos y clientes sin registros asociados
+Estructura del proyecto
+cineclub_oracle11g/
+│
+├── docs/
+│   ├── ERD.md                               # Diagrama entidad-relación y explicación del modelo
+│   └── Entrega_Oracle11g_RodrigoJara.docx   # Documento Word con instalación, pasos y capturas
+│
+├── sql/
+│   ├── 01_schema.sql                        # Creación de tablas, secuencias y triggers
+│   ├── 02_sample_data.sql                   # Inserción de datos de ejemplo
+│
+├── src/
+│   └── connect_and_query.py                 # Script Python para conexión y consulta básica
+│
+├── requirements.txt                          # Dependencias Python
+├── README.md                                 # Esta guía
+└── .gitignore
 
-✔ Consultas SQL avanzadas
+Ejecución rápida
 
-Incluye ejemplos de:
+Instalar Oracle Database 11g XE
+Crear usuario y contraseña (system / asd123)
+Probar conexión con SQL*Plus:
 
-JOIN entre varias tablas
+sqlplus system/asd123@localhost/XE
 
-Funciones agregadas (COUNT, SUM)
 
-Agrupación con GROUP BY y HAVING
+Clonar este repositorio o descomprimir el ZIP.
 
-Subconsultas correlacionadas
+(Opcional) Crear entorno virtual:
 
-✔ Índices
+py -3.12 -m venv .venv
+.\.venv\Scripts\activate
 
-Se implementó un índice adicional:
+
+Instalar dependencias:
+
+pip install oracledb
+
+
+Instalar Oracle Instant Client:
+Descargar desde Oracle (Instant Client 11.2)
+Extraer en:
+
+C:\Program Files\Oracle\instantclient_11_2
+
+
+Ejecutar los scripts SQL de la entrega 1:
+
+@sql/01_schema.sql
+@sql/02_sample_data.sql
+
+
+Editar la ruta del cliente en:
+
+oracledb.init_oracle_client(lib_dir=r'C:\\Program Files\\Oracle\\instantclient_11_2')
+
+
+Ejecutar el script Python:
+
+python src\connect_and_query.py
+
+Errores comunes y soluciones aplicadas
+Problema	Causa	Solución aplicada
+No matching distribution found for python-oracledb	Python 3.13 no tiene binario compatible aún	Se instaló Python 3.12
+ModuleNotFoundError: No module named 'oracledb'	Python ejecutado fuera del entorno virtual	Se activó .venv
+DPI-1047: Cannot locate Oracle Client	Falta de Instant Client o ruta incorrecta	Se instaló y configuró correctamente
+Caracteres raros (Ana PÃ©rez)	Codificación UTF-8 vs ANSI	Ajustes en impresión
+Documentación incluida
+
+Entrega_Oracle11g_RodrigoJara.docx: Documento con instalación, capturas, esquema E-R y prueba básica de conexión.
+
+Actualización – Entrega 2
+
+La entrega 2 amplía el proyecto con operaciones de manipulación de datos, consultas avanzadas, uso de índices y control de transacciones en Oracle 11g XE.
+
+Archivos añadidos en esta entrega
+sql/
+│── 03_entrega2.sql                 # CRUD, consultas avanzadas, índices y transacciones
+docs/
+│── Entrega2_Capturas.docx          # Evidencias de ejecución
+
+Contenido del script 03_entrega2.sql
+Operaciones CRUD
+
+Incluye:
+
+Inserción de clientes y películas.
+
+Actualización de datos (correo, precio).
+
+Eliminación de boletos y clientes sin registros asociados.
+
+Consultas SQL avanzadas
+
+Se añadieron consultas que utilizan:
+
+JOIN entre múltiples tablas.
+
+Funciones agregadas (COUNT, SUM).
+
+Agrupación con GROUP BY y HAVING.
+
+Subconsultas para cálculos dependientes (por ejemplo, la función con mayor precio).
+
+Índices
+
+Se creó el índice:
 
 CREATE INDEX ix_cliente_email ON cliente(email);
 
 
-Oracle devolvió el error ORA-01408 indicando que la columna ya tenía un índice creado automáticamente por la restricción UNIQUE, lo cual demuestra la correcta normalización del esquema.
+Oracle devolvió el error ORA-01408, indicando que la columna ya estaba indexada por la restricción UNIQUE.
 
-✔ Transacciones (SAVEPOINT, ROLLBACK, COMMIT)
+Transacciones
 
-Se añadió un ejemplo de transacción:
+El script demuestra el manejo transaccional:
 
-SAVEPOINT antes_compra;
+SAVEPOINT
 
-INSERT INTO boleto (...);
+ROLLBACK TO SAVEPOINT
 
-ROLLBACK TO antes_compra;
+COMMIT
 
-INSERT INTO boleto (...);
+Como evidencia del control de cambios.
 
-COMMIT;
+Ejecución de la Entrega 2
 
-
-Esto demuestra control de integridad y manejo seguro de cambios.
-
-✔ Evidencias
-
-Todas las evidencias de ejecución mediante SQLPlus (creación del esquema, inserción de datos, CRUD, consultas avanzadas, índices y transacciones) están documentadas con capturas dentro del archivo Word Entrega_Oracle11g_RodrigoJara_Sebastian_Espiritu.docx.
-
-📁 Archivos nuevos añadidos en la Entrega 2
-sql/
-│── 03_entrega2.sql        # CRUD, consultas avanzadas, índices y transacciones
-docs/
-│── Entrega2_Capturas.docx # Documento con evidencias de SQLPlus
-
-▶ Ejecución de la Entrega 2 en SQLPlus
-
-Dentro de SQLPlus:
+Ejecutar los scripts en orden dentro de SQLPlus:
 
 @sql/01_schema.sql
 @sql/02_sample_data.sql
 @sql/03_entrega2.sql
+
+Evidencias
+
+Las capturas de SQLPlus de la ejecución completa se encuentran documentadas en:
+
+docs/Entrega2_Capturas.docx
