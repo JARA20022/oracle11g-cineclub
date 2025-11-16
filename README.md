@@ -14,30 +14,33 @@ Estructura del proyecto
 cineclub_oracle11g/
 │
 ├── docs/
-│   ├── ERD.md                               # Diagrama entidad-relación y explicación del modelo
-│   └── Entrega_Oracle11g_RodrigoJara.docx   # Documento Word con instalación, pasos y capturas
+│   ├── ERD.md                                # Diagrama entidad-relación
+│   └── Entrega_Oracle11g_RodrigoJara.docx    # Documento Word (Entrega 1)
 │
 ├── sql/
-│   ├── 01_schema.sql                        # Creación de tablas, secuencias y triggers
-│   ├── 02_sample_data.sql                   # Inserción de datos de ejemplo
+│   ├── 01_schema.sql                         # Creación de tablas, secuencias y triggers
+│   ├── 02_sample_data.sql                    # Inserción de datos iniciales
+│   └── 03_entrega2.sql                       # CRUD, consultas avanzadas, índices y transacciones
 │
 ├── src/
-│   └── connect_and_query.py                 # Script Python para conexión y consulta básica
+│   └── connect_and_query.py                  # Script Python de conexión y consulta
+│
+├── docs/Entrega2_Capturas.docx               # Evidencias de entrega 2
 │
 ├── requirements.txt                          # Dependencias Python
-├── README.md                                 # Esta guía
+├── README.md                                 # Este archivo
 └── .gitignore
 
 Ejecución rápida
 
 Instalar Oracle Database 11g XE
 Crear usuario y contraseña (system / asd123)
-Probar conexión con SQL*Plus:
+Probar conexión con SQLPlus:
 
 sqlplus system/asd123@localhost/XE
 
 
-Clonar este repositorio o descomprimir el ZIP.
+Clonar este repositorio.
 
 (Opcional) Crear entorno virtual:
 
@@ -50,83 +53,83 @@ Instalar dependencias:
 pip install oracledb
 
 
-Instalar Oracle Instant Client:
-Descargar desde Oracle (Instant Client 11.2)
-Extraer en:
+Instalar Oracle Instant Client 11g y ubicarlo en:
 
 C:\Program Files\Oracle\instantclient_11_2
 
 
-Ejecutar los scripts SQL de la entrega 1:
+Ejecutar scripts SQL básicos:
 
 @sql/01_schema.sql
 @sql/02_sample_data.sql
 
 
-Editar la ruta del cliente en:
-
-oracledb.init_oracle_client(lib_dir=r'C:\\Program Files\\Oracle\\instantclient_11_2')
-
-
-Ejecutar el script Python:
+Ejecutar script Python:
 
 python src\connect_and_query.py
 
-Errores comunes y soluciones aplicadas
+Errores comunes y soluciones
 Problema	Causa	Solución aplicada
-No matching distribution found for python-oracledb	Python 3.13 no tiene binario compatible aún	Se instaló Python 3.12
-ModuleNotFoundError: No module named 'oracledb'	Python ejecutado fuera del entorno virtual	Se activó .venv
-DPI-1047: Cannot locate Oracle Client	Falta de Instant Client o ruta incorrecta	Se instaló y configuró correctamente
-Caracteres raros (Ana PÃ©rez)	Codificación UTF-8 vs ANSI	Ajustes en impresión
-Documentación incluida
+No matching distribution found for python-oracledb	Python 3.13 incompatible	Se usó Python 3.12
+ModuleNotFoundError: oracledb	Python global ejecutado	Activación del entorno virtual
+DPI-1047	No detecta Instant Client	Instalar y configurar ruta
+Caracteres raros	Diferencia de codificación	Ajuste de impresión
+Documentación incluida (Entrega 1)
 
-Entrega_Oracle11g_RodrigoJara.docx: Documento con instalación, capturas, esquema E-R y prueba básica de conexión.
+Esquema E/R
 
-Actualización – Entrega 2
+Instalación y configuración de Oracle 11g XE
 
-La entrega 2 amplía el proyecto con operaciones de manipulación de datos, consultas avanzadas, uso de índices y control de transacciones en Oracle 11g XE.
+Scripts base
 
-Archivos añadidos en esta entrega
-sql/
-│── 03_entrega2.sql                 # CRUD, consultas avanzadas, índices y transacciones
-docs/
-│── Entrega2_Capturas.docx          # Evidencias de ejecución
+Conexión desde Python
+
+Capturas de SQLPlus
+
+Documento:
+
+docs/Entrega_Oracle11g_RodrigoJara.docx
+
+ENTREGA 2 – Extensión del Proyecto
+
+La entrega 2 amplía el proyecto con nuevas funcionalidades SQL:
+CRUD, consultas avanzadas, índices y transacciones.
+
+Nuevos archivos incluidos
+sql/03_entrega2.sql
+docs/Entrega2_Capturas.docx
 
 Contenido del script 03_entrega2.sql
-Operaciones CRUD
-
-Incluye:
+1. Operaciones CRUD
 
 Inserción de clientes y películas.
 
-Actualización de datos (correo, precio).
+Actualización de correos y precios.
 
-Eliminación de boletos y clientes sin registros asociados.
+Eliminación de boletos y clientes sin compras.
 
-Consultas SQL avanzadas
+2. Consultas SQL avanzadas
 
-Se añadieron consultas que utilizan:
+Incluyen:
 
-JOIN entre múltiples tablas.
+JOIN entre múltiples tablas
 
-Funciones agregadas (COUNT, SUM).
+COUNT, SUM
 
-Agrupación con GROUP BY y HAVING.
+GROUP BY y HAVING
 
-Subconsultas para cálculos dependientes (por ejemplo, la función con mayor precio).
+Subconsultas
 
-Índices
-
-Se creó el índice:
-
+3. Índices
 CREATE INDEX ix_cliente_email ON cliente(email);
 
 
-Oracle devolvió el error ORA-01408, indicando que la columna ya estaba indexada por la restricción UNIQUE.
+Resultado:
+Oracle devuelve ORA-01408 porque la columna ya tiene un índice por la restricción UNIQUE.
 
-Transacciones
+4. Transacciones
 
-El script demuestra el manejo transaccional:
+Uso de:
 
 SAVEPOINT
 
@@ -134,18 +137,15 @@ ROLLBACK TO SAVEPOINT
 
 COMMIT
 
-Como evidencia del control de cambios.
+Demostrando control de integridad.
 
 Ejecución de la Entrega 2
-
-Ejecutar los scripts en orden dentro de SQLPlus:
-
 @sql/01_schema.sql
 @sql/02_sample_data.sql
 @sql/03_entrega2.sql
 
 Evidencias
 
-Las capturas de SQLPlus de la ejecución completa se encuentran documentadas en:
+Las capturas de ejecución en SQLPlus están documentadas en:
 
 docs/Entrega2_Capturas.docx
