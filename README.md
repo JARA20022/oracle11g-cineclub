@@ -1,135 +1,117 @@
-Mini-Proyecto Oracle 11g: Cineclub
+# Mini-Proyecto Oracle 11g: Cineclub
 
-Proyecto académico con instalación, configuración y conexión a Oracle Database 11g XE, incluyendo:
+Proyecto académico que incluye:
 
-Diseño de esquema relacional
+- Diseño del esquema relacional.
+- Creación de tablas y datos de ejemplo.
+- Conexión desde Python usando `oracledb` (modo Thick).
+- Ejecución de consultas y documentación con capturas.
 
-Creación de tablas y datos de ejemplo
+---
 
-Conexión desde Python usando oracledb (modo Thick)
+## Estructura del proyecto
 
-Ejecución de consulta simple y documentación con capturas
-
-Estructura del proyecto
+```txt
 cineclub_oracle11g/
 │
 ├── docs/
-│   ├── ERD.md                                # Diagrama entidad-relación
-│   └── Entrega_Oracle11g_RodrigoJara.docx    # Documento Word (Entrega 1)
+│   ├── ERD.md
+│   ├── Entrega_Oracle11g_RodrigoJara.docx
+│   └── Entrega2_Capturas.docx
 │
 ├── sql/
-│   ├── 01_schema.sql                         # Creación de tablas, secuencias y triggers
-│   ├── 02_sample_data.sql                    # Inserción de datos iniciales
-│   └── 03_entrega2.sql                       # CRUD, consultas avanzadas, índices y transacciones
+│   ├── 01_schema.sql
+│   ├── 02_sample_data.sql
+│   └── 03_entrega2.sql
 │
 ├── src/
-│   └── connect_and_query.py                  # Script Python de conexión y consulta
+│   └── connect_and_query.py
 │
-├── docs/Entrega2_Capturas.docx               # Evidencias de entrega 2
-│
-├── requirements.txt                          # Dependencias Python
-├── README.md                                 # Este archivo
+├── requirements.txt
+├── README.md
 └── .gitignore
+Ejecución rápida (Entrega 1)
+Instalar Oracle Database 11g XE.
 
-Ejecución rápida
+Probar conexión:
 
-Instalar Oracle Database 11g XE
-Crear usuario y contraseña (system / asd123)
-Probar conexión con SQLPlus:
-
+sql
+Copiar código
 sqlplus system/asd123@localhost/XE
+Crear entorno virtual (opcional):
 
-
-Clonar este repositorio.
-
-(Opcional) Crear entorno virtual:
-
+powershell
+Copiar código
 py -3.12 -m venv .venv
-.\.venv\Scripts\activate
-
-
+.\\.venv\\Scripts\\activate
 Instalar dependencias:
 
+powershell
+Copiar código
 pip install oracledb
+Instalar Oracle Instant Client (11.2) en:
 
-
-Instalar Oracle Instant Client 11g y ubicarlo en:
-
+makefile
+Copiar código
 C:\Program Files\Oracle\instantclient_11_2
+Ejecutar scripts SQL:
 
-
-Ejecutar scripts SQL básicos:
-
+sql
+Copiar código
 @sql/01_schema.sql
 @sql/02_sample_data.sql
-
-
 Ejecutar script Python:
 
+powershell
+Copiar código
 python src\connect_and_query.py
-
 Errores comunes y soluciones
-Problema	Causa	Solución aplicada
-No matching distribution found for python-oracledb	Python 3.13 incompatible	Se usó Python 3.12
-ModuleNotFoundError: oracledb	Python global ejecutado	Activación del entorno virtual
-DPI-1047	No detecta Instant Client	Instalar y configurar ruta
-Caracteres raros	Diferencia de codificación	Ajuste de impresión
-Documentación incluida (Entrega 1)
+Problema	Causa	Solución
+python-oracledb no instala	Python 3.13	Usar Python 3.12
+ModuleNotFoundError: oracledb	Entorno no activado	Activar .venv
+DPI-1047	Falta Instant Client	Instalar y configurar ruta
+Caracteres raros	Codificación	Ajustar impresión UTF-8
 
-Esquema E/R
+Entrega 2 – Extensión del proyecto
+La segunda entrega agrega CRUD, consultas avanzadas, manejo de índices y transacciones.
 
-Instalación y configuración de Oracle 11g XE
-
-Scripts base
-
-Conexión desde Python
-
-Capturas de SQLPlus
-
-Documento:
-
-docs/Entrega_Oracle11g_RodrigoJara.docx
-
-ENTREGA 2 – Extensión del Proyecto
-
-La entrega 2 amplía el proyecto con nuevas funcionalidades SQL:
-CRUD, consultas avanzadas, índices y transacciones.
-
-Nuevos archivos incluidos
+Archivos añadidos
+pgsql
+Copiar código
 sql/03_entrega2.sql
 docs/Entrega2_Capturas.docx
-
 Contenido del script 03_entrega2.sql
 1. Operaciones CRUD
+INSERT de cliente y película.
 
-Inserción de clientes y películas.
+UPDATE de correo y precios.
 
-Actualización de correos y precios.
-
-Eliminación de boletos y clientes sin compras.
+DELETE de boleto y clientes sin compras.
 
 2. Consultas SQL avanzadas
+Incluye:
 
-Incluyen:
+JOIN entre múltiples tablas.
 
-JOIN entre múltiples tablas
+COUNT y SUM.
 
-COUNT, SUM
+GROUP BY y HAVING.
 
-GROUP BY y HAVING
-
-Subconsultas
+Subconsultas (funciones con mayor precio, etc.).
 
 3. Índices
+sql
+Copiar código
 CREATE INDEX ix_cliente_email ON cliente(email);
+Oracle devolvió:
 
-
-Resultado:
-Oracle devuelve ORA-01408 porque la columna ya tiene un índice por la restricción UNIQUE.
+makefile
+Copiar código
+ORA-01408: esta lista de columnas ya está indexada
+La columna ya tenía un índice por la restricción UNIQUE.
 
 4. Transacciones
-
-Uso de:
+Implementación de:
 
 SAVEPOINT
 
@@ -137,15 +119,16 @@ ROLLBACK TO SAVEPOINT
 
 COMMIT
 
-Demostrando control de integridad.
+Ejemplo demostrado en SQLPlus.
 
-Ejecución de la Entrega 2
+Ejecución de la entrega 2
+sql
+Copiar código
 @sql/01_schema.sql
 @sql/02_sample_data.sql
 @sql/03_entrega2.sql
-
 Evidencias
+Las capturas se encuentran en:
 
-Las capturas de ejecución en SQLPlus están documentadas en:
-
+Copiar código
 docs/Entrega2_Capturas.docx
