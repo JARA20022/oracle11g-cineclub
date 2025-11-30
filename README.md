@@ -236,38 +236,57 @@ En esta entrega se agregaron:
 
 ---
 
+# **Entrega 3 — Procedimientos, triggers, vistas y app avanzada**
+
+En esta entrega se agregaron:
+
+- Procedimientos almacenados:
+  - `sp_registrar_boleto(p_id_funcion, p_id_cliente, p_asiento)`
+  - `sp_actualizar_precio_funcion(p_id_funcion, p_nuevo_precio)`
+- Triggers básicos:
+  - `bi_log_boleto` (AFTER INSERT ON boleto, registra en `log_boleto`)
+  - `bu_cliente_email_lower` (BEFORE INSERT OR UPDATE ON cliente, normaliza el email a minúsculas)
+- Vistas creadas:
+  - `vw_boletos_detalle` (detalle completo de los boletos)
+  - `vw_ingresos_por_pelicula` (resumen de ingresos por película)
+- Aplicación Python:
+  - `app_entrega3.py`:
+    - Invoca `sp_registrar_boleto`
+    - Consulta y muestra las vistas
+
+---
+
 ## Archivos añadidos (Entrega 3)
 
-- `sql/04_entrega3.sql` – Script con procedimientos, triggers, vistas y pruebas  
-- `src/app_entrega3.py` – Script Python avanzado  
-- `docs/Entrega3_Capturas.docx` – Evidencias de la entrega 3  
+- `sql/04_entrega3.sql`
+- `src/app_entrega3.py`
+- `docs/Entrega3_Capturas.docx`
 
 ---
 
 ## Ejecución de la Entrega 3
 
-1. Ejecutar scripts en SQL*Plus:
+### 1. Ejecutar scripts en SQL*Plus
 
 ```sql
 @sql/01_schema.sql
 @sql/02_sample_data.sql
 @sql/03_entrega2.sql
 @sql/04_entrega3.sql
-Ejecutar aplicación en Python:
-
+```
+2. Ejecutar script Python
 powershell
 Copiar código
 python src\app_entrega3.py
-Consultas opcionales para evidencias:
-
+4. Consultas opcionales
 sql
 Copiar código
+```
 SELECT * FROM vw_boletos_detalle;
 SELECT * FROM vw_ingresos_por_pelicula;
 SELECT * FROM log_boleto;
+```
 Evidencias de la Entrega 3
-Se encuentran en:
-
 Copiar código
 docs/Entrega3_Capturas.docx
 Incluyen:
@@ -278,6 +297,7 @@ Ejecución de triggers
 
 Resultados de vistas
 
-Salida del script app_entrega3.py
----
+Salida de app_entrega3.py
 
+yaml
+Copiar código
