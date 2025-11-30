@@ -274,11 +274,11 @@ En esta entrega se agregaron:
 @sql/03_entrega2.sql
 @sql/04_entrega3.sql
 ```
-2. Ejecutar script Python
+### 2. Ejecutar script Python
 powershell
 Copiar código
 python src\app_entrega3.py
-4. Consultas opcionales
+### 4. Consultas opcionales
 sql
 Copiar código
 ```
@@ -286,9 +286,10 @@ SELECT * FROM vw_boletos_detalle;
 SELECT * FROM vw_ingresos_por_pelicula;
 SELECT * FROM log_boleto;
 ```
-Evidencias de la Entrega 3
-Copiar código
+### Evidencias de la Entrega 3
+
 docs/Entrega3_Capturas.docx
+
 Incluyen:
 
 Prueba de procedimientos almacenados
@@ -299,5 +300,3 @@ Resultados de vistas
 
 Salida de app_entrega3.py
 
-yaml
-Copiar código
